@@ -43,7 +43,14 @@ export async function fetchLatestInvoices() {
   }
 }
 
-export async function fetchCardData() {
+type CardData = {
+  numberOfCustomers: number;
+  numberOfInvoices: number;
+  totalPaidInvoices: string;
+  totalPendingInvoices: string;
+};
+
+export async function fetchCardData() : Promise<CardData> {
   let retries = 10;
   while (retries > 0) {
     try {
@@ -82,6 +89,7 @@ export async function fetchCardData() {
       }
     }
   }
+  throw new Error('Failed to fetch card data after multiple retries.');
 }
 
 const ITEMS_PER_PAGE = 6;
