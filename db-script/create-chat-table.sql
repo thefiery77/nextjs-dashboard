@@ -1,0 +1,13 @@
+CREATE TABLE CHATS (
+    TICKETID UUID REFERENCES TICKETS(TICKETID) NOT NULL,
+    CREATEDATE TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    ISCUSTOMERMESSAGE BOOLEAN NOT NULL,
+    MESSAGE TEXT NOT NULL
+);
+
+drop Table chats
+
+
+INSERT INTO CHATS (ticketid, iscustomermessage, MESSAGE) VALUES ('153da760-f6e5-47d8-86d2-76dcce5b3640' , TRUE, 'Hi I am angry, my pc doesnt work')
+
+INSERT INTO CHATS (ticketid, iscustomermessage, MESSAGE) VALUES ('153da760-f6e5-47d8-86d2-76dcce5b3640' , false, 'Hi, what happened?')

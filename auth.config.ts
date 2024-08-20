@@ -1,5 +1,7 @@
 import type { NextAuthConfig } from 'next-auth';
- 
+
+const protectedRoutesPattern = /^\/dashboard(?:\/|$)/; // Matches '/dashboard' and any subpaths
+
 export const authConfig = {
   pages: {
     signIn: '/login',
@@ -7,8 +9,12 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
-      if (isOnDashboard) {
+
+      // Test if the pathname matches the protected routes pattern
+      const isProtectedRoute = protectedRoutesPattern.test(nextUrl.pathname);
+      console.log("Is the route " + nextUrl.pathname + " protected? " + isProtectedRoute);
+
+      if (isProtectedRoute) {
         if (isLoggedIn) return true;
         return false; // Redirect unauthenticated users to login page
       } else if (isLoggedIn) {
